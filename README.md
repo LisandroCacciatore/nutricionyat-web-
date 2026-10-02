@@ -61,6 +61,7 @@ sin esa variable la base es `/`, que es lo correcto para un dominio raíz
 
 | Qué | Dónde |
 |---|---|
+| **Sistema de diseño** (tokens, tipografía, contraste medido, componentes) | **`DESIGN.md`** |
 | Datos de la profesional, links, servicios, FAQ, testimonios | `src/data/site.js` |
 | Artículos del blog | `src/data/blog.js` |
 | Colores, tipografías, radios, sombras | `tailwind.config.js` |
