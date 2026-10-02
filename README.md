@@ -66,14 +66,30 @@ sin esa variable la base es `/`, que es lo correcto para un dominio raíz
 | Colores, tipografías, radios, sombras | `tailwind.config.js` |
 | Cuerpo del artículo (texto común) | `src/pages/BlogPost.jsx` |
 
-## ⚠️ Pendientes antes de publicar
+## 🎭 Es un mock: qué es real y qué es de muestra
 
-Esto **no** son detalles cosméticos: son datos que faltan y que no se pueden inventar.
+Este repo es un **mock para una propuesta comercial**, no el sitio en producción.
+El contenido de abajo es **de ejemplo**, puesto para que la propuesta se vea completa
+y para que Yamila pueda imaginarse el sistema terminado. Al contratar, cada ítem se
+reemplaza por el dato real.
 
-- [ ] **Testimonios inventados.** Los 3 de `src/data/site.js` no son pacientes reales.
-      Reemplazar por testimonios reales con autorización, o eliminar la sección
-      (incluido el eyebrow "Experiencias Clínicas Reales" en `Home.jsx`).
-- [ ] **"+1.200 Pacientes acompañados"** en el hero: cifra sin verificar. Pedir la real.
+Consecuencia técnica ya aplicada: `index.html` lleva `<meta name="robots" content="noindex, nofollow">`.
+Un sitio público con el nombre real de una profesional y testimonios de pacientes
+fabricados **no debe quedar en Google**. Ese meta tag hay que quitarlo el día que el
+sitio pase a producción en el dominio propio.
+
+> Por qué no hay `robots.txt`: en una *project page* (`usuario.github.io/<repo>/`) los
+> crawlers **solo leen `/robots.txt` en la raíz del host**, que en `github.io` no nos
+> pertenece. Un `robots.txt` dentro del repo no lo leería nadie. El meta tag es lo que sí funciona.
+
+### Contenido de muestra a reemplazar al contratar
+
+- [ ] **Los 3 testimonios** de `src/data/site.js` son inventados, igual que el título
+      "Experiencias Clínicas Reales". En una demo se entiende; en producción serían
+      publicidad engañosa. Reemplazar por reales con autorización, o quitar la sección.
+- [ ] **"+1.200 Pacientes acompañados"** en el hero: cifra de ejemplo. Poner la real.
+- [ ] **Respuestas del FAQ**: describen una operatoria (50-60 min, entrega en 48 hs,
+      facturación) que Yamila tiene que confirmar o reescribir con sus palabras.
 - [ ] **WhatsApp**: el brief lo pedía como canal principal y no hay número.
       Falta cargarlo en `FloatingCTA.jsx` y en `site.js`.
 - [ ] **Matrícula** (M.N. / M.P.): no figura en el sitio. Agregar en el footer.
@@ -84,12 +100,13 @@ Esto **no** son detalles cosméticos: son datos que faltan y que no se pueden in
       consentimiento de datos de salud.
 - [ ] **Páginas legales**: los links de privacidad / términos / consentimiento
       apuntan a `#`. Escribirlas.
-- [ ] **Imágenes**: todas son placeholders de `picsum.photos`. Reemplazar por fotos
-      reales de Yamila y de sus platos (con autorización).
+- [ ] **Imágenes**: todas son placeholders de `picsum.photos`. En el mock se ven como
+      fotos; en producción van las reales de Yamila y de sus platos.
 - [ ] **Blog**: los 9 artículos comparten el mismo cuerpo de texto genérico.
-      Escribir contenido real o dejar el blog apagado.
 - [ ] **SEO**: falta JSON-LD (schema `Person` / `LocalBusiness`), `og:url`,
-      `og:image`, `sitemap.xml` y `robots.txt`. Requiere dominio propio definido.
+      `og:image`, `sitemap.xml` y `robots.txt` en la raíz del dominio.
+- [ ] **Favicon**: falta (hoy `/favicon.ico` da 404).
+
 
 ## ♿ Accesibilidad
 

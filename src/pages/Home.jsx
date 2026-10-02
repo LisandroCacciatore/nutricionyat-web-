@@ -43,8 +43,7 @@ export default function Home() {
                   Conocé mi Enfoque
                 </Button>
               </div>
-              {/* ⚠️ Estos números son afirmaciones sobre su práctica.
-                  "+1.200 pacientes" NO está verificado: pedirle la cifra real a Yamila. */}
+              {/* Cifra de muestra del mock. Al contratar, poner la real. */}
               <div className="grid grid-cols-3 gap-6 pt-10 border-t border-brand/10 mt-10">
                 <div>
                   <span className="text-2xl font-display font-semibold text-brand block">
@@ -315,9 +314,8 @@ export default function Home() {
               Historias de transformación sin extremos
             </h2>
           </div>
-          {/* ⚠️ BLOQUEANTE: los testimonios de src/data/site.js son inventados.
-              Reemplazar por reales con autorización, o quitar esta sección
-              (y el eyebrow "Experiencias Clínicas Reales") antes de publicar. */}
+          {/* Testimonios de muestra del mock. Al contratar: reales con autorización,
+              o se quita esta sección (y el eyebrow "Experiencias Clínicas Reales"). */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {testimonials.map((t) => (
               <div

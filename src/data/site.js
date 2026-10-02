@@ -103,11 +103,10 @@ export const plans = [
   },
 ];
 
-// ⚠️ BLOQUEANTE: estos tres testimonios son INVENTADOS, no son pacientes reales.
-// Publicar testimonios falsos en el sitio de una profesional de la salud es un riesgo
-// legal y ético (publicidad engañosa) y el brief original pedía testimonios REALES.
-// Antes de publicar: reemplazar por testimonios reales con autorización de la paciente,
-// o eliminar la sección.
+// ⚠️ CONTENIDO DE MUESTRA (este repo es un mock para una propuesta comercial).
+// Estos tres testimonios no son pacientes reales: están puestos para que la
+// propuesta se vea completa. Al contratar, reemplazar por testimonios reales con
+// autorización de la paciente, o quitar la sección.
 export const testimonials = [
   {
     name: 'Mariana S.',
