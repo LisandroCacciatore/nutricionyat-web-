@@ -7,6 +7,7 @@ import Approach from './pages/Approach.jsx';
 import Blog from './pages/Blog.jsx';
 import BlogPost from './pages/BlogPost.jsx';
 import Contact from './pages/Contact.jsx';
+import DesignSystem from './pages/DesignSystem.jsx';
 import NotFound from './pages/NotFound.jsx';
 
 // En GitHub Pages el sitio vive en una subcarpeta (https://usuario.github.io/nutricionyat-web-/).
@@ -26,6 +27,10 @@ export default function App() {
           <Route path="blog" element={<Blog />} />
           <Route path="blog/:slug" element={<BlogPost />} />
           <Route path="contacto" element={<Contact />} />
+          {/* Sistema de diseño: a propósito FUERA de la navegación.
+              Se llega por link directo (/sistema) para mostrarlo en la propuesta
+              sin ensuciar el recorrido normal del visitante. */}
+          <Route path="sistema" element={<DesignSystem />} />
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>

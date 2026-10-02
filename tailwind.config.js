@@ -1,36 +1,14 @@
+// Los tokens del sistema viven en src/data/tokens.js para que este config, el CSS
+// generado y la página /sistema lean EL MISMO objeto. Si un color cambia allá, cambia
+// el CSS y cambia la tabla de contraste calculada: no hay dos fuentes que puedan divergir.
+import { tokens } from './src/data/tokens.js';
+
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ['./index.html', './src/**/*.{js,jsx}'],
   theme: {
     extend: {
-      colors: {
-        // Botanical Vitality Palette
-        brand: {
-          DEFAULT: '#163328', // Deep Laurel Sage
-          hover: '#2D4A3E',
-          soft: '#C9EAD9',
-          container: '#2D4A3E',
-        },
-        accent: {
-          DEFAULT: '#D97D54', // Sun-dried Persimmon
-          hover: '#E68A5F',
-        },
-        surface: {
-          DEFAULT: '#F6FBF5', // Oatmeal canvas
-          alt: '#F0F5F0',
-          muted: '#EBEFEA',
-          white: '#FFFFFF',
-        },
-        ink: {
-          title: '#163328',
-          body: '#506351',
-          muted: '#727974',
-        },
-        secondary: {
-          DEFAULT: '#506351', // Tender Herb
-          light: '#D0E5CE',
-        },
-      },
+      colors: tokens,
       fontFamily: {
         display: ['"Playfair Display"', 'serif'],
         sans: ['"Plus Jakarta Sans"', 'sans-serif'],

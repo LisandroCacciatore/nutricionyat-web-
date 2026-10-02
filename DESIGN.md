@@ -2,10 +2,18 @@
 
 Sistema de diseño del sitio **Lic. Yamila Titonel (Nutricionyat)**.
 
-**La fuente de verdad es `tailwind.config.js`.** Este documento lo explica y lo justifica;
-si hay una discrepancia entre los dos, manda el código. Todos los valores de color de acá
-están extraídos de ese archivo, y todos los ratios de contraste fueron **calculados** con
-la fórmula de luminancia relativa de WCAG 2.x (ver *Método* al final), no estimados.
+**La fuente de verdad es `src/data/tokens.js`**, no este documento. Ese archivo lo
+consumen tres cosas a la vez: `tailwind.config.js` (que genera las clases), la página
+`/sistema` (que dibuja los swatches y **calcula** la tabla de contraste en el navegador) y
+este documento. Si hay una discrepancia, mandan los tokens.
+
+📄 **Versión navegable:** `/sistema` en el sitio publicado — swatches, especímenes
+tipográficos, radios, sombras y la tabla de contraste calculada en vivo. No está en el
+menú: se llega por link directo, pensado para mostrarlo en la propuesta.
+
+Todos los valores de color de acá están extraídos de esos tokens, y todos los ratios de
+contraste fueron **calculados** con la fórmula de luminancia relativa de WCAG 2.x
+(ver *Método* al final), no estimados.
 
 ---
 
@@ -112,7 +120,8 @@ Los títulos usan `line-height: 1.25` por la capa base; el hero lo pisa a `1.1` 
 ## 4. Contraste medido
 
 El README original afirmaba "contraste WCAG 2.1 AA/AAA siguiendo la paleta". Lo medí.
-**La mayoría cumple; hay tres puntos que no**, y los tres son accionables.
+**La mayoría cumple; cuatro pares no**, y corresponden a **tres problemas de fondo**.
+Los tres son accionables.
 
 | Combinación | Ratio | AA texto (4.5) | AA grande (3.0) | AAA (7.0) |
 |---|---|---|---|---|
@@ -122,7 +131,7 @@ El README original afirmaba "contraste WCAG 2.1 AA/AAA siguiendo la paleta". Lo 
 | `brand.soft` sobre `brand` — badge | **10.57** | ✅ | ✅ | ✅ |
 | `white` sobre `brand.hover` | **9.72** | ✅ | ✅ | ✅ |
 | `white/80` sobre `brand` — subtítulo FAB | **9.26** | ✅ | ✅ | ✅ |
-| `white/70` sobre `brand` | **7.49** | ✅ | ✅ | ✅ |
+| `white/70` sobre `brand` | **7.50** | ✅ | ✅ | ✅ |
 | `ink.body` sobre `surface.white` | **6.47** | ✅ | ✅ | ❌ |
 | `ink.body` sobre `surface` | **6.18** | ✅ | ✅ | ❌ |
 | `secondary` sobre `surface` — eyebrow | **6.18** | ✅ | ✅ | ❌ |
@@ -329,8 +338,11 @@ Los ratios de contraste se calcularon con la fórmula de luminancia relativa de 
 se linealiza cada canal sRGB (`c/12.92` si `c ≤ 0.03928`, si no `((c+0.055)/1.055)^2.4`),
 se combina con `0.2126R + 0.7152G + 0.0722B`, y el ratio es `(L₁+0.05)/(L₂+0.05)` sobre
 el más claro y el más oscuro. Los valores con alfa se componen sobre el fondo antes de
-medir. Umbrales: **4.5** para texto normal, **3.0** para texto grande (≥24px, o ≥18.66px
-en negrita), **7.0** para AAA.
+medir, redondeando **medio hacia arriba** (`Math.round`), que es lo que hace la
+implementación del sitio en `src/lib/contrast.js` — con el redondeo *banker's* de Python el
+par `white/70` sobre `brand` daría 7.49 en lugar de 7.50. Umbrales: **4.5** para texto
+normal, **3.0** para texto grande (≥24px, o ≥18.66px en negrita), **7.0** para AAA.
 
-Los valores de los tokens provienen de `tailwind.config.js`; los patrones de clases, de
-`src/index.css`, `src/components/` y `src/pages/`.
+Los valores de los tokens provienen de `src/data/tokens.js` (que `tailwind.config.js`
+importa: es la fuente única); los patrones de clases, de `src/index.css`,
+`src/components/` y `src/pages/`.
