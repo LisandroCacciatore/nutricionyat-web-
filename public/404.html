@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <title>Nutricionyat</title>
+    <!--
+      GitHub Pages no reescribe rutas a index.html: si un paciente entra directo a
+      /blog/mi-articulo o recarga esa URL, Pages devuelve este 404.
+      Truco estándar (spa-github-pages): guardamos la ruta en el query y volvemos al
+      index real; index.html la restaura con history.replaceState.
+      pathSegmentsToKeep = 1 porque el sitio es una "project page"
+      (https://<usuario>.github.io/<repo>/).
+    -->
+    <script>
+      var pathSegmentsToKeep = 1;
+      var l = window.location;
+      l.replace(
+        l.protocol +
+          '//' +
+          l.hostname +
+          (l.port ? ':' + l.port : '') +
+          l.pathname
+            .split('/')
+            .slice(0, 1 + pathSegmentsToKeep)
+            .join('/') +
+          '/?/' +
+          l.pathname
+            .slice(1)
+            .split('/')
+            .slice(pathSegmentsToKeep)
+            .join('/')
+            .replace(/&/g, '~and~') +
+          (l.search ? '&' + l.search.slice(1).replace(/&/g, '~and~') : '') +
+          l.hash
+      );
+    </script>
+  </head>
+  <body></body>
+</html>
