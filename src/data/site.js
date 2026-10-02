@@ -1,12 +1,16 @@
 // Datos centrales del sitio. Todo lo editable vive acá.
 //
-// ⚠️ PENDIENTE ANTES DE PUBLICAR (no hay que inventar estos datos):
-//   - whatsapp: el brief pide botón flotante de WhatsApp, pero no hay número
-//     de contacto. Falta pedírselo a Yamila.
-//   - linkedin: hoy apunta a linkedin.com (home). Falta la URL real del perfil.
+// Links REALES del cliente, verificados con HTTP 200:
+//   - whatsapp: +54 341 308-4064 (Rosario). Se guarda tal cual figura en el link que
+//     pasó el cliente, SIN agregarle el 9 de móvil: su link es la fuente de verdad.
+//   - docturno: cartilla real. Reemplaza al link de DrApp, que ya no se usa.
+//   - instagram: @nutricionyat
+// El sitio reemplaza a https://linktr.ee/nutricionyat (eso es lo que estaba antes).
+//
+// ⚠️ SIGUE PENDIENTE (no inventar estos datos):
+//   - linkedin: apunta a linkedin.com (home). Falta la URL real del perfil.
 //   - email: 'info@nutricionyat.com' — confirmar que el dominio y el buzón existan.
 //   - matricula: el brief pide matrícula nacional/provincial. No se incluyó ninguna.
-//   - instagram/docturno: URLs verificables, tomadas del proyecto original.
 
 export const site = {
   name: 'Lic. Yamila Titonel',
@@ -14,8 +18,21 @@ export const site = {
   email: 'info@nutricionyat.com',
   instagram: 'https://www.instagram.com/nutricionyat/',
   linkedin: 'https://www.linkedin.com/', // TODO(CONTENIDO): URL real del perfil
-  docturno: 'https://6aac69026fc205a9.cartilla.drapp.com.ar/',
+  docturno: 'https://www.docturno.com/gm/migrado/nutricionyat',
+  // Teléfono tal cual figura en el link real de WhatsApp. No "corregir" con el 9.
+  whatsapp: '543413084064',
+  whatsappDisplay: '+54 341 308-4064',
+  whatsappMsg: 'Hola! Quiero solicitar información sobre las consultas. Muchas gracias',
 };
+
+/**
+ * URL de WhatsApp armada desde `whatsapp` + `whatsappMsg`, para que el texto del
+ * mensaje se edite en un solo lugar.
+ * Verificado: reproduce carácter por carácter el link que pasó el cliente.
+ */
+export function whatsappUrl(message = site.whatsappMsg) {
+  return `https://wa.me/${site.whatsapp}?text=${encodeURIComponent(message)}`;
+}
 
 export const nav = [
   { label: 'Inicio', to: '/' },
@@ -96,7 +113,7 @@ export const plans = [
     features: [
       'Turnos online mediante videollamada personalizada estés donde estés.',
       'Atención presencial en consultorio agendando en simples clics.',
-      'Fácil reserva online inmediata a través de la cartilla DrApp / Docturno.',
+      'Reserva online inmediata a través de la cartilla de Docturno.',
     ],
     cta: 'Elegir Turno Online o Presencial',
     highlighted: false,

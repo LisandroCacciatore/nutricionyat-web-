@@ -1,4 +1,5 @@
 import { Link, useParams } from 'react-router-dom';
+import { site } from '../data/site.js';
 import { blogPosts } from '../data/blog.js';
 import { Button, Container } from '../components/ui.jsx';
 
@@ -94,7 +95,7 @@ export default function BlogPost() {
               sostenibles.
             </p>
             <Button
-              href="https://6aac69026fc205a9.cartilla.drapp.com.ar/"
+              href={site.docturno}
               target="_blank"
               rel="noopener noreferrer"
             >

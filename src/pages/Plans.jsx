@@ -1,4 +1,4 @@
-import { plans } from '../data/site.js';
+import { site, plans } from '../data/site.js';
 import { Button, Container, Section } from '../components/ui.jsx';
 
 export default function Plans() {
@@ -87,7 +87,7 @@ export default function Plans() {
                   </ul>
                 </div>
                 <Button
-                  href="https://6aac69026fc205a9.cartilla.drapp.com.ar/"
+                  href={site.docturno}
                   target="_blank"
                   rel="noopener noreferrer"
                   variant={plan.highlighted ? 'accent' : 'secondary'}

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Container, Section, Button } from '../components/ui.jsx';
-import { site } from '../data/site.js';
+import { site, whatsappUrl } from '../data/site.js';
+import { WhatsappIcon } from '../components/icons.jsx';
 
 // ⚠️ El formulario NO envía nada: handleSubmit solo cambia el estado local y
 // muestra el mensaje de agradecimiento. No hay backend, webhook ni servicio de
@@ -79,6 +80,19 @@ export default function Contact() {
                   Canales Directos
                 </h3>
                 <div className="flex flex-col gap-4">
+                  <a
+                    href={whatsappUrl()}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-3 text-sm text-ink-body no-underline hover:text-brand"
+                  >
+                    <span className="w-10 h-10 rounded-full bg-brand-soft flex items-center justify-center text-brand">
+                      <WhatsappIcon className="w-5 h-5" />
+                    </span>
+                    <span>
+                      WhatsApp: <strong>{site.whatsappDisplay}</strong>
+                    </span>
+                  </a>
                   <a
                     href={site.instagram}
                     target="_blank"

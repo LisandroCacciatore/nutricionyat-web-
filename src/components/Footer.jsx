@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
-import { nav, site } from '../data/site.js';
+import { nav, site, whatsappUrl } from '../data/site.js';
+import { WhatsappIcon } from './icons.jsx';
 
 export default function Footer() {
   return (
@@ -53,8 +54,8 @@ export default function Footer() {
                   Presencial
                 </span>
                 <p className="text-xs text-ink-body">
-                  Consultorio médico con turnos gestionados en cartilla online
-                  DrApp.
+                  Consultorio médico con turnos gestionados en la cartilla online
+                  de Docturno.
                 </p>
               </div>
               <div className="bg-surface-white p-4 rounded-xl shadow-soft">
@@ -83,6 +84,15 @@ export default function Footer() {
                   calendar_month
                 </span>
                 Agenda en Docturno
+              </a>
+              <a
+                href={whatsappUrl()}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-sm text-ink-body hover:text-brand transition-colors flex items-center gap-2 no-underline"
+              >
+                <WhatsappIcon className="w-4 h-4" />
+                WhatsApp: {site.whatsappDisplay}
               </a>
               <a
                 href={site.instagram}

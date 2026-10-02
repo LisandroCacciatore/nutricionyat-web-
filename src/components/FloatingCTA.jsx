@@ -1,10 +1,11 @@
 import { useState } from 'react';
-import { site } from '../data/site.js';
+import { site, whatsappUrl } from '../data/site.js';
+import { WhatsappIcon } from './icons.jsx';
 
-// Botón flotante de acceso rápido a turnos.
-// TODO(CONTENIDO): el brief pide WhatsApp como canal principal de consulta rápida.
-// Falta el número de Yamila; cuando esté, agregar acá un tercer botón con
-// href={`https://wa.me/54911XXXXXXX`} y su ícono.
+// Botón flotante de acceso rápido a turnos (el brief lo pide siempre visible).
+// Tres canales, en orden de intención: Docturno (reservar), WhatsApp (consulta rápida)
+// e Instagram. WhatsApp y no Docturno es el que más convierte en consultas sueltas,
+// pero el primario sigue siendo agendar.
 export default function FloatingCTA() {
   const [open, setOpen] = useState(false);
 
@@ -43,6 +44,15 @@ export default function FloatingCTA() {
               className="flex items-center justify-center gap-2 w-full bg-brand text-white text-sm font-semibold py-3 rounded-btn no-underline hover:bg-brand-hover transition-colors"
             >
               Agenda en Docturno
+            </a>
+            <a
+              href={whatsappUrl()}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-center gap-2 w-full bg-brand-soft text-brand text-sm font-semibold py-3 rounded-btn no-underline hover:bg-brand/10 transition-colors"
+            >
+              <WhatsappIcon className="w-4 h-4" />
+              Escribime por WhatsApp
             </a>
             <a
               href={site.instagram}

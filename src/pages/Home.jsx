@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { pillars, plans, testimonials, faqs } from '../data/site.js';
+import { site, pillars, plans, testimonials, faqs } from '../data/site.js';
 import { Button, Container, Section } from '../components/ui.jsx';
 import { useState } from 'react';
 
@@ -33,7 +33,7 @@ export default function Home() {
                 adaptadas a tu rutina real. Presencial y Online.
               </p>
               <div className="flex flex-wrap gap-4">
-                <Button href="https://6aac69026fc205a9.cartilla.drapp.com.ar/" target="_blank" rel="noopener noreferrer">
+                <Button href={site.docturno} target="_blank" rel="noopener noreferrer">
                   Solicitar Turno en Docturno
                   <span className="material-symbols-outlined text-base">
                     arrow_forward
@@ -287,7 +287,7 @@ export default function Home() {
                   </ul>
                 </div>
                 <Button
-                  href="https://6aac69026fc205a9.cartilla.drapp.com.ar/"
+                  href={site.docturno}
                   target="_blank"
                   rel="noopener noreferrer"
                   variant={plan.highlighted ? 'accent' : 'secondary'}
@@ -402,7 +402,7 @@ export default function Home() {
               </div>
               <div className="flex flex-col gap-3">
                 <Button
-                  href="https://6aac69026fc205a9.cartilla.drapp.com.ar/"
+                  href={site.docturno}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-full justify-center"
@@ -413,7 +413,7 @@ export default function Home() {
                   </span>
                 </Button>
                 <Button
-                  href="https://www.instagram.com/nutricionyat/"
+                  href={site.instagram}
                   target="_blank"
                   rel="noopener noreferrer"
                   variant="secondary"

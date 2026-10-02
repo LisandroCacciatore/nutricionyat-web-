@@ -1,4 +1,5 @@
 import { Container, Section, Button } from '../components/ui.jsx';
+import { site } from '../data/site.js';
 
 export default function Approach() {
   return (
@@ -73,7 +74,7 @@ export default function Approach() {
 
           <div className="text-center mt-16">
             <Button
-              href="https://6aac69026fc205a9.cartilla.drapp.com.ar/"
+              href={site.docturno}
               target="_blank"
               rel="noopener noreferrer"
             >

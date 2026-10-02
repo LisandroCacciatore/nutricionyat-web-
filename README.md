@@ -83,6 +83,25 @@ sitio pase a producción en el dominio propio.
 > crawlers **solo leen `/robots.txt` en la raíz del host**, que en `github.io` no nos
 > pertenece. Un `robots.txt` dentro del repo no lo leería nadie. El meta tag es lo que sí funciona.
 
+### Links reales ya cargados
+
+Verificados con HTTP 200. Todos salen de `src/data/site.js`: cambiar uno es editar una línea.
+
+| Destino | URL | Dónde aparece |
+|---|---|---|
+| Agendar consulta | `https://www.docturno.com/gm/migrado/nutricionyat` | Navbar, hero, planes, enfoque, blog, contacto, footer y FAB |
+| WhatsApp | `https://wa.me/543413084064?text=…` | FAB, contacto y footer |
+| Instagram | `https://www.instagram.com/nutricionyat/` | Hero, FAQ, contacto, footer y FAB |
+| **Esto reemplaza a** | `https://linktr.ee/nutricionyat` | el Linktree que el sitio viene a sustituir |
+
+Dos detalles deliberados:
+
+- El teléfono se guarda **tal cual figura en el link del cliente** (`543413084064`), sin
+  agregarle el `9` que suelen llevar los móviles argentinos. Su link es la fuente de verdad
+  y se verificó que `wa.me` con ese número redirige correctamente.
+- El mensaje precargado vive en `site.whatsappMsg`; la URL se arma con `whatsappUrl()`, así
+  que el texto se edita en un solo lugar y no hay 3 copias que puedan divergir.
+
 ### Contenido de muestra a reemplazar al contratar
 
 - [ ] **Los 3 testimonios** de `src/data/site.js` son inventados, igual que el título
@@ -91,8 +110,6 @@ sitio pase a producción en el dominio propio.
 - [ ] **"+1.200 Pacientes acompañados"** en el hero: cifra de ejemplo. Poner la real.
 - [ ] **Respuestas del FAQ**: describen una operatoria (50-60 min, entrega en 48 hs,
       facturación) que Yamila tiene que confirmar o reescribir con sus palabras.
-- [ ] **WhatsApp**: el brief lo pedía como canal principal y no hay número.
-      Falta cargarlo en `FloatingCTA.jsx` y en `site.js`.
 - [ ] **Matrícula** (M.N. / M.P.): no figura en el sitio. Agregar en el footer.
 - [ ] **LinkedIn**: `site.linkedin` apunta a la home de linkedin.com. Poner la URL real.
 - [ ] **Email** `info@nutricionyat.com`: confirmar que el dominio y el buzón existan.
