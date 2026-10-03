@@ -128,7 +128,7 @@ export default function Home() {
               >
                 <div>
                   <div className="flex items-center justify-between mb-6">
-                    <span className="font-display text-3xl text-secondary/40">
+                    <span className="font-display text-3xl text-secondary/70">
                       {p.num}
                     </span>
                     <span className="w-10 h-10 rounded-full bg-brand-soft flex items-center justify-center text-brand">

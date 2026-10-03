@@ -43,7 +43,8 @@
     @apply bg-transparent text-brand border-[1.5px] border-brand hover:bg-brand/5;
   }
   .btn-accent {
-    @apply bg-accent text-white shadow-soft hover:shadow-hover hover:-translate-y-0.5;
+    /* accent.deep y no accent: el acento crudo da 2.99 con texto blanco encima. */
+    @apply bg-accent-deep text-white shadow-soft hover:shadow-hover hover:-translate-y-0.5;
   }
 
   .section {

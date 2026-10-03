@@ -16,8 +16,13 @@ export const tokens = {
     container: '#2D4A3E', // declarado, sin uso
   },
   accent: {
-    DEFAULT: '#D97D54', // Sun-dried Persimmon
+    DEFAULT: '#D97D54', // Sun-dried Persimmon — para superficies SIN texto encima
     hover: '#E68A5F', // declarado, sin uso
+    // Variante oscurecida, para cuando el acento lleva texto blanco encima.
+    // El acento crudo con blanco da 2.99: no llega ni al umbral de texto grande (3.0).
+    // Este tono da 4.55. No está elegido a ojo: es el primer tono que alcanza 4.5 al
+    // oscurecer el DEFAULT. El cálculo se ve en vivo en /sistema.
+    deep: '#AC6343',
   },
   surface: {
     DEFAULT: '#F6FBF5', // Oatmeal canvas — fondo global
@@ -28,7 +33,10 @@ export const tokens = {
   ink: {
     title: '#163328',
     body: '#506351',
-    muted: '#727974',
+    // #727974 daba 4.26 sobre surface y 3.84 sobre surface.muted: fallaba AA en texto
+    // de 12px, que es justo donde no aplica la excepción de texto grande. Este tono da
+    // 5.00 y 4.50 respectivamente.
+    muted: '#676E69',
   },
   secondary: {
     DEFAULT: '#506351', // Tender Herb
@@ -100,8 +108,10 @@ export const contrastPairs = [
   { fg: 'ink.body', bg: 'surface.alt', size: 'normal', context: 'Cuerpo en secciones alternas' },
   { fg: 'ink.muted', bg: 'surface', size: 'normal', context: 'Footer y metadatos (12px)' },
   { fg: 'ink.muted', bg: 'surface.muted', size: 'normal', context: 'Aviso médico (12px)' },
-  { fg: 'surface.white', bg: 'accent', size: 'normal', context: 'Botón accent (14px semibold)' },
-  { fg: 'secondary', alpha: 0.4, bg: 'surface.alt', size: 'large', context: 'Números de pilar (30px)' },
+  { fg: 'surface.white', bg: 'accent', size: 'normal', context: 'Acento crudo con texto blanco — NO usar, ver accent.deep' },
+  { fg: 'surface.white', bg: 'accent.deep', size: 'normal', context: 'Botón accent corregido (14px semibold)' },
+  { fg: 'accent.deep', bg: 'surface.white', size: 'normal', context: 'Etiquetas de falla en /sistema (11px)' },
+  { fg: 'secondary', alpha: 0.7, bg: 'surface.alt', size: 'large', context: 'Números de pilar (30px, corregido de /40 a /70)' },
 ];
 
 /** Escala tipográfica, con las clases reales del sitio. */

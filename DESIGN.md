@@ -45,15 +45,16 @@ controlado, el beige es limpio, y el acento es un fruto, no una flor.
 | `brand.hover` | `#2D4A3E` | — | Estado hover del brand. |
 | `brand.soft` | `#C9EAD9` | — | Fondos suaves, badges, chips de íconos. |
 | `brand.container` | `#2D4A3E` | — | *(declarado, hoy sin uso)* |
-| `accent` | `#D97D54` | Sun-dried Persimmon | Acento cálido. **Ver §4: no usar con texto blanco.** |
+| `accent` | `#D97D54` | Sun-dried Persimmon | Base del acento. **Hoy sin uso como clase**: se conserva como origen de `accent.deep` y para superficies sin texto encima (bordes, íconos, barras). |
 | `accent.hover` | `#E68A5F` | — | *(declarado, hoy sin uso)* |
+| `accent.deep` | `#AC6343` | — | Ac oscurecido, para cuando el acento lleva **texto blanco**. Lo usa `.btn-accent` (§4). |
 | `surface` | `#F6FBF5` | Oatmeal canvas | Fondo global del sitio (cuerpo). |
 | `surface.alt` | `#F0F5F0` | — | Fondo de secciones alternas (`.section-alt`). |
 | `surface.muted` | `#EBEFEA` | — | Cajas de aviso legal, bloques de baja jerarquía. |
 | `surface.white` | `#FFFFFF` | — | Tarjetas. Reservado para que las tarjetas floten. |
 | `ink.title` | `#163328` | — | Títulos (igual al brand, por decisión). |
 | `ink.body` | `#506351` | — | Texto de párrafo. |
-| `ink.muted` | `#727974` | — | Metadatos, footer, disclaimers. **Ver §4.** |
+| `ink.muted` | `#676E69` | — | Metadatos, footer, disclaimers. Corregido para cumplir AA (§4). |
 | `secondary` | `#506351` | Tender Herb | Eyebrows, íconos, acentos secundarios (igual al `ink.body`). |
 | `secondary.light` | `#D0E5CE` | — | *(declarado, hoy sin uso)* |
 
@@ -63,6 +64,11 @@ Notas de implementación:
   claridad semántica, no por diferencia visual.
 - `ink.title` y `brand` son **el mismo color** (`#163328`), por la misma razón.
 - Los tokens marcados *sin uso* no hay que borrarlos: documentan la intención de la escala.
+- Al corregir el contraste, el token `accent` crudo quedó **sin ninguna clase que lo use**:
+  Tailwind lo eliminó del CSS por tree-shaking. Sigue existiendo como dato (base de
+  `accent.deep` y fila de la tabla de contraste) y como el color correcto para superficies
+  que no llevan texto encima. Si nadie lo usa en la práctica, es una decisión pendiente,
+  no un olvido.
 
 ### Cómo se combinan
 
@@ -120,8 +126,15 @@ Los títulos usan `line-height: 1.25` por la capa base; el hero lo pisa a `1.1` 
 ## 4. Contraste medido
 
 El README original afirmaba "contraste WCAG 2.1 AA/AAA siguiendo la paleta". Lo medí.
-**La mayoría cumple; cuatro pares no**, y corresponden a **tres problemas de fondo**.
-Los tres son accionables.
+**La mayoría cumplía; cuatro pares no**, que respondían a tres problemas de fondo. **Los
+tres están corregidos y aplicados:**
+
+1. Se agregó el token **`accent.deep`** (`#AC6343`) para el acento cuando lleva texto blanco.
+2. **`ink.muted`** pasó de `#727974` a **`#676E69`**.
+3. Los números de pilar pasaron de **`secondary/40`** a **`secondary/70`**.
+
+La tabla queda con **una sola fila en rojo, y es a propósito**: documenta por qué existe
+`accent.deep`.
 
 | Combinación | Ratio | AA texto (4.5) | AA grande (3.0) | AAA (7.0) |
 |---|---|---|---|---|
@@ -136,37 +149,41 @@ Los tres son accionables.
 | `ink.body` sobre `surface` | **6.18** | ✅ | ✅ | ❌ |
 | `secondary` sobre `surface` — eyebrow | **6.18** | ✅ | ✅ | ❌ |
 | `ink.body` sobre `surface.alt` | **5.86** | ✅ | ✅ | ❌ |
-| `ink.muted` sobre `surface` | **4.26** | ❌ | ✅ | ❌ |
-| `ink.muted` sobre `surface.muted` | **3.84** | ❌ | ✅ | ❌ |
-| `white` sobre `accent` — botón accent | **2.99** | ❌ | ❌ | ❌ |
-| `secondary/40` sobre `surface.alt` — número de pilar | **1.80** | ❌ | ❌ | ❌ |
+| `ink.muted` sobre `surface` | **5.00** | ✅ | ✅ | ❌ |
+| `ink.muted` sobre `surface.muted` | **4.50** | ✅ | ✅ | ❌ |
+| `accent.deep` sobre `surface.white` | **4.55** | ✅ | ✅ | ❌ |
+| `white` sobre `accent.deep` — botón accent | **4.55** | ✅ | ✅ | ❌ |
+| `secondary/70` sobre `surface.alt` — número de pilar (30px) | **3.09** | — *(30px)* | ✅ | ❌ |
+| `white` sobre `accent` crudo — **no usar** | **2.99** | ❌ | ❌ | ❌ |
 
-### Los tres problemas, con la corrección medida
+### Las tres correcciones, aplicadas y medidas
 
-**1. `white` sobre `accent` = 2.99.** El persimón `#D97D54` no aguanta texto blanco:
-falla incluso el umbral de texto grande (3.0), por un centésimo.
-*Corrección:* oscurecer el acento a **`#AC6343`**, que da **4.55** con blanco. Si el
-acento se quiere solo para superficies sin texto (bordes, íconos, barras), `#D97D54`
-está bien y no hay que tocar nada.
+**1. Texto blanco sobre el acento.** El persimón `#D97D54` daba **2.99** con blanco: no
+llegaba ni al umbral de texto grande (3.0).
+*Aplicado:* se agregó el token **`accent.deep` = `#AC6343`**, que da **4.55**, y
+`.btn-accent` lo usa. **No se reemplazó el acento**: `#D97D54` se conserva como el color
+para superficies que no llevan texto encima (bordes, íconos, barras), donde el tono vivo
+funciona y el contraste con texto no es un problema. Dos tokens, dos usos, ninguno
+mentiroso. Dato honesto: hoy **ninguna clase usa el acento crudo**, así que Tailwind lo
+quitó del CSS. Es reserva de diseño, no código activo.
+El valor no está elegido a ojo: `#AC6343` es el primer tono que alcanza 4.5 al oscurecer
+el DEFAULT, y ese cálculo se ve en vivo en `/sistema`.
 
-> Estado actual: **este fallo no es visible en el sitio**. El token `accent` se usa
-> únicamente como nombre de variante (`ui.jsx:15`, y `variant="accent"` en `Home.jsx:293`
-> y `Plans.jsx:93`), y en los dos usos reales el `className` sobreescribe el fondo a
-> blanco (`!bg-white !text-brand`). O sea: `.btn-accent` es CSS latente. El día que
-> alguien lo use tal cual está, el fallo aparece.
+> Por qué no se notaba: el token `accent` se usaba únicamente como nombre de variante
+> (`ui.jsx:15`, `variant="accent"` en `Home.jsx:293` y `Plans.jsx:93`), y en los dos usos
+> reales el `className` sobreescribía el fondo a blanco (`!bg-white !text-brand`). O sea:
+> `.btn-accent` era CSS latente. Estaba mal sin que se viera.
 
-**2. `ink.muted` (`#727974`) falla AA sobre las dos superficies donde se usa.**
-4.26 sobre `surface` y 3.84 sobre `surface.muted`, y se aplica a texto de 12px —footer,
-"Actualizado 2026", el aviso médico— que es exactamente el caso donde no aplica la
-excepción de texto grande.
-*Corrección:* cambiar `ink.muted` a **`#676E69`**, que da **4.50** sobre `surface.muted`
-(el fondo más exigente) y **5.00** sobre `surface`. Cubre los dos casos con un solo valor.
+**2. `ink.muted` en texto de 12px.** `#727974` daba **4.26** sobre `surface` y **3.84**
+sobre `surface.muted`, y se usa en el footer, en "Actualizado 2026" y en el aviso médico:
+texto chico, donde no aplica la excepción de texto grande.
+*Aplicado:* `ink.muted` ahora es **`#676E69`**, que da **5.00** y **4.50**. Un solo valor
+cubre las dos superficies.
 
-**3. `secondary/40` = 1.80 en los números de pilar ("01"–"04").**
-Son `text-3xl` (30px), así que el umbral es 3.0, y están muy lejos.
-*Corrección:* subir a **`secondary/70`** (`#808F81`, ratio **3.09**), o dejar la opacidad
-y marcarlos `aria-hidden="true"` si se considera decoración pura. Hoy son contenido
-(el orden de los pilares), así que corresponde subirlos.
+**3. Los números de pilar al 40%.** Daban **1.80**. Son `text-3xl` (30px), así que el
+umbral es 3.0, y estaban lejísimos.
+*Aplicado:* subieron a **`secondary/70`**, que da **3.09**. Se descartó la alternativa de
+marcarlos `aria-hidden`: son el orden de los pilares, o sea contenido, no decoración.
 
 ---
 
@@ -307,10 +324,10 @@ referencia útil de posición.
 - Tarjetas sobre `surface` o `surface.alt`, nunca sobre `surface.white`.
 - El acento (`accent`) para señalar, no para decorar.
 - Todo texto interactivo con `min-h-[48px]` de alto.
+- Texto blanco sobre el acento **solo** con `accent.deep`.
 
 **No**
-- Texto blanco sobre `accent` sin corregir el tono (§4).
-- Texto de 12px en `ink.muted` sin corregir el valor (§4).
+- Texto blanco sobre `accent` crudo: para eso está `accent.deep` (§4).
 - Sombras negras nuevas: tintearlas con el verde del sistema (§7).
 - Mezclar `rounded-card` y `rounded-2xl` en el mismo nivel de jerarquía (§6).
 - Verde "salud" brillante, gradientes de color, o cualquier estética que empuje el sitio

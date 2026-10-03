@@ -1,16 +1,26 @@
-feat(nav): menu hamburguesa para mobile y CTA de agendar siempre visible
+fix(a11y): aplicar las tres correcciones de contraste que reportaba DESIGN.md
 
-El brief pedia "menu hamburguesa simple, con CTA de Agendar siempre visible", y no
-habia ninguno: el Navbar completo estaba oculto hasta xl (1280px) y el CTA de la
-cabecera tambien desaparecia debajo de sm. En un celular los links del menu solo
-existian en el footer, al final de la pagina, con el 80 por ciento del trafico
-llegando desde Instagram.
+El README afirmaba "contraste WCAG 2.1 AA/AAA". Medido, fallaba en cuatro pares de la
+tabla (tres problemas de fondo). Los tres quedan corregidos.
 
-- components/MobileMenu.jsx: panel con `open` por prop, para poder renderizarlo y
-  verificarlo aislado. Un render de servidor no puede abrir un estado interno.
-- Navbar: boton hamburguesa de 48x48 con aria-expanded y aria-controls; Escape
-  cierra el menu y devuelve el foco al boton.
-- CTA siempre visible: etiqueta corta en mobile, completa desde sm.
-- El avatar placeholder se oculta en mobile para no competir con el CTA.
+1. Texto blanco sobre el acento: #D97D54 daba 2.99, ni el umbral de texto grande (3.0).
+   En lugar de oscurecer el acento (lo que lo degrada justamente donde funciona como
+   acento) se agrego el token accent.deep = #AC6343, que da 4.55, y .btn-accent lo usa.
+   El #AC6343 no esta elegido a ojo: es el primer tono que alcanza 4.5 al oscurecer el
+   DEFAULT, y ese calculo se muestra en vivo en /sistema.
 
-Verificado con renderToString en los dos estados: 22/22.
+2. ink.muted: #727974 daba 4.26 sobre surface y 3.84 sobre surface.muted, y se usa en
+   texto de 12px (footer, metadatos, aviso medico), donde no aplica la excepcion de
+   texto grande. Ahora #676E69: 5.00 y 4.50.
+
+3. Numeros de pilar: al 40 por ciento daban 1.80. A 70 por ciento dan 3.09, sobre el
+   umbral de 3.0 que corresponde a text-3xl (30px).
+
+Dato honesto: al corregir, el acento crudo quedo sin ninguna clase que lo use y Tailwind
+lo elimino del CSS por tree-shaking. Sigue siendo el color correcto para superficies sin
+texto encima, pero hoy es reserva de diseno y no codigo activo. Queda anotado en DESIGN.md.
+
+La tabla de /sistema ahora muestra 17 pares, 16 cumplen AA, y la unica fila en rojo es el
+acento crudo: esta a proposito, documenta por que existe accent.deep.
+
+Verificado con renderToString: 22/22.

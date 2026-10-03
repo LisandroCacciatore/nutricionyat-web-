@@ -39,7 +39,7 @@ function Badge({ ok, label }) {
   return (
     <span
       className={`inline-block text-[10px] font-bold uppercase tracking-wide px-2 py-0.5 rounded-full ${
-        ok ? 'bg-brand-soft text-brand' : 'bg-accent/15 text-accent'
+        ok ? 'bg-brand-soft text-brand' : 'bg-accent-deep text-white'
       }`}
     >
       {label}
@@ -158,8 +158,10 @@ export default function DesignSystem() {
             <strong className="text-brand">
               {okCount} cumplen AA para su tamaño de texto
             </strong>
-            ; {rows.length - okCount} no. Los que fallan están abajo, con el valor exacto y su
-            corrección propuesta.
+            ; {rows.length - okCount} no. Las tres correcciones ya están aplicadas y se detallan
+            abajo con el valor exacto. La única fila que sigue fallando a propósito es el acento
+            crudo con texto blanco: queda en la tabla como documentación de por qué existe
+            el token <code>accent.deep</code>.
           </p>
           <p className="text-sm text-ink-body max-w-2xl mb-10">
             Umbrales WCAG: <strong>4.5</strong> para texto normal, <strong>3.0</strong> para
@@ -212,47 +214,54 @@ export default function DesignSystem() {
 
           <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="bg-white p-6 rounded-2xl shadow-soft">
-              <span className="text-[11px] font-bold uppercase tracking-wide text-accent block mb-2">
-                Falla
+              <span className="text-[11px] font-bold uppercase tracking-wide text-accent-deep block mb-2">
+                Corregido
               </span>
               <h3 className="text-base font-semibold text-brand mb-2">Texto blanco sobre el acento</h3>
               <p className="text-sm text-ink-body mb-3">
-                {contrast('#FFFFFF', tokens.accent.DEFAULT).toFixed(2)} — no llega ni al umbral de
+                El acento crudo con blanco daba{' '}
+                {contrast('#FFFFFF', tokens.accent.DEFAULT).toFixed(2)}: no llegaba ni al umbral de
                 texto grande.
               </p>
               <p className="text-xs text-ink-muted">
-                Corrección calculada: oscurecer el acento a{' '}
-                <code className="text-brand font-semibold">
-                  {darkenTo(tokens.accent.DEFAULT, '#FFFFFF', 4.5)}
-                </code>
-                , que da {contrast(darkenTo(tokens.accent.DEFAULT, '#FFFFFF', 4.5), '#FFFFFF').toFixed(2)}{' '}
-                con blanco.
+                Se agregó el token <code className="text-brand font-semibold">accent.deep</code> ({' '}
+                {tokens.accent.deep}), que da{' '}
+                {contrast('#FFFFFF', tokens.accent.deep).toFixed(2)} con blanco, y{' '}
+                <code>.btn-accent</code> lo usa. El valor no está elegido a ojo: es el primer tono
+                que alcanza 4.5 al oscurecer el DEFAULT ({darkenTo(tokens.accent.DEFAULT, '#FFFFFF', 4.5)}).
+                El acento original se conserva para las superficies que no llevan texto encima.
               </p>
             </div>
             <div className="bg-white p-6 rounded-2xl shadow-soft">
-              <span className="text-[11px] font-bold uppercase tracking-wide text-accent block mb-2">
-                Falla
+              <span className="text-[11px] font-bold uppercase tracking-wide text-accent-deep block mb-2">
+                Corregido
               </span>
               <h3 className="text-base font-semibold text-brand mb-2">ink.muted en 12px</h3>
               <p className="text-sm text-ink-body mb-3">
-                {contrast(tokens.ink.muted, tokens.surface.DEFAULT).toFixed(2)} sobre surface y{' '}
-                {contrast(tokens.ink.muted, tokens.surface.muted).toFixed(2)} sobre surface.muted.
+                Antes <code>#727974</code> daba 4.26 sobre surface y 3.84 sobre surface.muted:
+                fallaba AA. Ahora <code className="text-brand font-semibold">{tokens.ink.muted}</code>{' '}
+                da {contrast(tokens.ink.muted, tokens.surface.DEFAULT).toFixed(2)} y{' '}
+                {contrast(tokens.ink.muted, tokens.surface.muted).toFixed(2)}.
               </p>
               <p className="text-xs text-ink-muted">
-                Se usa en footer, metadatos y aviso médico: texto chico, sin excepción de texto grande.
+                Se usa en footer, metadatos y aviso médico: texto chico, donde no aplica la excepción
+                de texto grande.
               </p>
             </div>
             <div className="bg-white p-6 rounded-2xl shadow-soft">
-              <span className="text-[11px] font-bold uppercase tracking-wide text-accent block mb-2">
-                Falla
+              <span className="text-[11px] font-bold uppercase tracking-wide text-accent-deep block mb-2">
+                Corregido
               </span>
               <h3 className="text-base font-semibold text-brand mb-2">Números de pilar al 40%</h3>
               <p className="text-sm text-ink-body mb-3">
+                Al 40% daban{' '}
                 {contrast(composite(tokens.secondary.DEFAULT, tokens.surface.alt, 0.4), tokens.surface.alt).toFixed(2)}{' '}
-                sobre surface.alt.
+                sobre surface.alt. Ahora al 70% dan{' '}
+                {contrast(composite(tokens.secondary.DEFAULT, tokens.surface.alt, 0.7), tokens.surface.alt).toFixed(2)}.
               </p>
               <p className="text-xs text-ink-muted">
-                Son 30px (umbral 3.0) y son contenido, no decoración: corresponde subir la opacidad.
+                Son 30px, o sea umbral 3.0, y son contenido y no decoración: no correspondía
+                dejarlos fuera del alcance de AA sin más.
               </p>
             </div>
           </div>
