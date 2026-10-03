@@ -1,0 +1,16 @@
+feat(nav): menu hamburguesa para mobile y CTA de agendar siempre visible
+
+El brief pedia "menu hamburguesa simple, con CTA de Agendar siempre visible", y no
+habia ninguno: el Navbar completo estaba oculto hasta xl (1280px) y el CTA de la
+cabecera tambien desaparecia debajo de sm. En un celular los links del menu solo
+existian en el footer, al final de la pagina, con el 80 por ciento del trafico
+llegando desde Instagram.
+
+- components/MobileMenu.jsx: panel con `open` por prop, para poder renderizarlo y
+  verificarlo aislado. Un render de servidor no puede abrir un estado interno.
+- Navbar: boton hamburguesa de 48x48 con aria-expanded y aria-controls; Escape
+  cierra el menu y devuelve el foco al boton.
+- CTA siempre visible: etiqueta corta en mobile, completa desde sm.
+- El avatar placeholder se oculta en mobile para no competir con el CTA.
+
+Verificado con renderToString en los dos estados: 22/22.
